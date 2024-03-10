@@ -9,21 +9,38 @@ function NewPost() {
     const navigate = useNavigate();
 
     async function submitpost() {
-        const a = await fetch("/posts", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                Content: posttext.current.value,
-                Image: postimage.current.value
+        if (postimage.current.files != null) {
+            const formData = new FormData();
+            formData.append("Content", posttext.current.value)
+            formData.append("Image", postimage.current.files[0])
+            console.log(postimage.current.files[0])
+            const a = await fetch("/posts", {
+                method: "POST",
+                body: formData
             })
-        })
-        if (a.status == 200) {
-            navigate("/")
-        } else {
-            alert("there was a problem")
+            if (a.status == 200) {
+                navigate("/")
+            } else {
+                alert("there was a problem")
+            }
+        } else if (posttext.current.value != null) {
+            const a = await fetch("/posts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    Content: posttext.current.value,
+                  
+                })
+            })
+            if (a.status == 200) {
+                navigate("/")
+            } else {
+                alert("there was a problem")
+            }
         }
+        
     }
 
 

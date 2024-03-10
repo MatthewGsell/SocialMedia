@@ -14,6 +14,7 @@ import UserPage from "../src/components/UserPage"
 import Login from "../src/components/Login"
 import Signup from "../src/components/Signup"
 import NewPost from './components/NewPost';
+import Comments from "./components/Comments"
 function App() {
 
 
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/newpost" element={<NewPost />} />
+                <Route path="/comments"><Route path=":id" element={<Comments />} /></Route>
             </Routes>
         </Router>
     );

@@ -3,6 +3,6 @@
     public class PostRequest
     {
         public string? Content { get; set; }
-        public byte[]? Image { get; set; }
+        public IFormFile? Image { get; set; }
     }
 }

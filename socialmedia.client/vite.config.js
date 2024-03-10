@@ -75,6 +75,10 @@ export default defineConfig({
             '^/posts': {
                 target,
                 secure: false
+            },
+            '^/comments': {
+                target,
+                secure: false
             }
 
         },
