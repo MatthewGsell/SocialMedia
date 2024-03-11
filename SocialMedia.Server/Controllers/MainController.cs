@@ -144,6 +144,20 @@ namespace SocialMedia.Server.Controllers
 
            
         }
+        [HttpDelete("/posts")]
+        public async Task<IResult> DeletePost(MainContext maindb, [FromBody] DeleteRequest deleteRequest)
+        {
+            if (deleteRequest.Id == null) { return Results.Problem(); }  
+            else {
+                Post posttodelete = await maindb.Posts.Where(p => p.Id == Int32.Parse(deleteRequest.Id)).SingleAsync();
+                maindb.Posts.Remove(posttodelete);
+                await maindb.SaveChangesAsync();
+                return Results.Ok();
+            }
+
+
+           
+        } 
 
         [HttpGet("/comments")]
         public async Task<IResult> GetComments(MainContext maindb)
@@ -173,6 +187,22 @@ namespace SocialMedia.Server.Controllers
                 return Results.Problem();
             }
             
+        }
+        [HttpDelete("/comments")] 
+        public async Task<IResult> DeleteComment(MainContext maindb, [FromBody] DeleteRequest deleteRequest)
+        {
+            if(deleteRequest.Id == null)
+            {
+                return Results.Problem();
+            }else
+            {
+                Comment commenttodelete = await maindb.Comments.Where(c => c.Id == Int32.Parse(deleteRequest.Id)).SingleAsync();
+                maindb.Comments.Remove(commenttodelete);
+                await maindb.SaveChangesAsync();
+                return Results.Ok();
+
+            }
+           
         }
 
     }

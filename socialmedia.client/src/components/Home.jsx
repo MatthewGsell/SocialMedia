@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom"
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 
 function Home() {
+    const postdeletebutton = useRef()
+    const [currentUser, setCurrentUser] = useState({})
     const [posts, setPosts] = useState([])
+    const [render, setRender] = useState(0)
     const navigate = useNavigate()
     let postsrender = []
 
@@ -11,7 +14,7 @@ function Home() {
       isauthorized()
        getposts()
 
-    },[])
+    }, [render])
 
     renderposts()
 
@@ -19,9 +22,11 @@ function Home() {
         const a = await fetch("/pingauth");
         if (a.status != 200) {
             navigate("/login")
+        } else {
+            const b = await a.json()
+            setCurrentUser(b.currentUser)
         }
-        const username = await a.json()
-        console.log(username)
+        
  
     }
 
@@ -34,14 +39,40 @@ function Home() {
 
     function renderposts() {
         posts.forEach((post) => {
-            console.log(post.id)
-            if (post.image != null) {
-                postsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p>{post.content}</p><img src={`data:image;base64,${post.image}`}></img><div><button>Like</button>{post.likes.toString()} likes</div><div><button onClick={(e) => { navigate("/comments/" + e.target.parentElement.parentElement.id) }}>Comment</button>{post.comments.toString()} comments</div><div><button>Share</button>{post.shares.toString()} shares</div></li>])
+            if (currentUser.userName != post.author) {
+                if (post.image != null) {
+                    postsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p>{post.content}</p><img src={`data:image;base64,${post.image}`}></img><div><button>Like</button>{post.likes.toString()} likes</div><div><button onClick={(e) => { navigate("/comments/" + e.target.parentElement.parentElement.id) }}>Comment</button>{post.comments.toString()} comments</div><div><button>Share</button>{post.shares.toString()} shares</div></li>])
+                } else {
+                    postsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p>{post.content}</p><div><button>Like</button>{post.likes.toString()} likes</div><div><button onClick={(e) => { navigate("/comments/" + e.target.parentElement.parentElement.id) }}>Comment</button>{post.comments.toString()} comments</div><div><button>Share</button>{post.shares.toString()} shares</div></li>])
+                }
             } else {
-                postsrender.push([<div key={crypto.randomUUID()} className="postdiv" id={post.id}><p>{post.content}</p></div>])
+                if (post.image != null) {
+                    postsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p>{post.content}</p><img src={`data:image;base64,${post.image}`}></img><div><button>Like</button>{post.likes.toString()} likes</div><div><button onClick={(e) => { navigate("/comments/" + e.target.parentElement.parentElement.id) }}>Comment</button>{post.comments.toString()} comments</div><div><button>Share</button>{post.shares.toString()} shares</div><button onClick={deletepost}>Delete</button></li>])
+                } else {
+                    postsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p>{post.content}</p><div><button>Like</button>{post.likes.toString()} likes</div><div><button onClick={(e) => { navigate("/comments/" + e.target.parentElement.parentElement.id) }}>Comment</button>{post.comments.toString()} comments</div><div><button>Share</button>{post.shares.toString()} shares</div><button onClick={deletepost}>Delete</button></li>])
+                }
             }
+           
             
         })
+    }
+
+    async function deletepost(e) {
+        const a = await fetch(`/posts`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Id: e.target.parentElement.id
+            })
+        })
+        if (a.status == 200) {
+            const newrender = render + 1
+            setRender(newrender)
+        } else {
+            alert("there was a problem")
+        }
     }
 
 
