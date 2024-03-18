@@ -7,17 +7,25 @@ using Microsoft.Identity.Client;
 using SocialMedia.Server.Models;
 using System.Security.Claims;
 using System.Text.Json;
+using Microsoft.AspNetCore.Cors.Infrastructure;
+using SocialMedia.Server.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 // Add services to the container.
+
+
+builder.Services.AddSignalR();
+
 builder.Services.AddDbContext<UserContext>(options =>
 {
-    options.UseSqlServer("Server=MATTSLAPTOP;Database=UserDB; TrustServerCertificate=True; Integrated Security=True;");
+    options.UseSqlServer("Server=DESKTOP-GCC7A7J;Database=UserDB; TrustServerCertificate=True; Integrated Security=True;");
 });
 builder.Services.AddDbContext<MainContext>(options =>
 {
-    options.UseSqlServer("Server=MATTSLAPTOP;Database=MainDb; TrustServerCertificate=True; Integrated Security=True;");
+    options.UseSqlServer("Server=DESKTOP-GCC7A7J;Database=MainDb; TrustServerCertificate=True; Integrated Security=True;");
 });
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<UserContext>();
@@ -26,6 +34,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
 
 var app = builder.Build();
 
@@ -103,5 +113,8 @@ app.UseAuthorization();
 app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
+
+app.MapHub<MessageHub>("/messages");
+
 
 app.Run();

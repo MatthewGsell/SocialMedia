@@ -6,6 +6,8 @@ namespace SocialMedia.Server.Models
     {
 
         public byte[]? ProfilePicture { get; set; }
+        public byte[]? BannerPicture { get; set;}
+        public string? AboutMe { get; set; }
 
     }
 }

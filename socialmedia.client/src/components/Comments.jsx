@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom"
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useLayoutEffect } from "react";
 
 
 
@@ -7,19 +7,72 @@ function Comments() {
     const navigate = useNavigate()
     const { id } = useParams()
     const [comments, setComments] = useState([])
-    const [currentUser, setCurrentUser] = useState()
+    const [currentUser, setCurrentUser] = useState({})
     const [render, setRender] = useState(0)
-    const commentsRender = []
+    const [commentsRender, setCommentsRender] = useState([])
+    const [post, setPost] = useState("")
     const newcommenttext = useRef()
+    let likedclass = ""
  
 
     useEffect(() => {
-        getcomments()
+
         isauthorized()
+        getsinglepost()
+        getcomments()
+       
     }, [render])
 
 
-    rendercomments()
+    useLayoutEffect(() => {
+        rendercomments()
+    }, [comments, currentUser])
+
+
+
+
+    async function getsinglepost() {
+        const a = await fetch(`/singlepost?postid=${id}`)
+
+        if (a.status == 200) {
+            const b = await a.json()
+            setPost(b.post)
+        } else {
+            alert("issue getting post content")
+        }
+    }
+
+
+
+
+
+    async function isliked(commentid) {
+        const a = await fetch(`/likecomment?commentid=${commentid}`)
+        if (a.status == 200) {
+            
+            const b = await a.json()
+            console.log(b)
+            likedclass = b.isliked
+
+
+        } else {
+            alert("there was a problem")
+        }
+    }
+
+    async function likeordislikecomment(commentid) {
+        const a = await fetch(`/likecomment?commentid=${commentid}`, {
+            method: "POST"
+        })
+        if (a.status == 200) {
+
+
+
+        } else {
+            alert("there was a problem")
+        }
+    }
+
 
     async function isauthorized() {
         const a = await fetch("/pingauth");
@@ -43,14 +96,44 @@ function Comments() {
     }
 
     async function rendercomments() {
-        comments.forEach((comment) => {
-            if (comment.author != currentUser.userName) {
-                commentsRender.push(<li key={crypto.randomUUID()} id={comment.id} className="comment"><p>{comment.content}</p></li>)
-            } else {
-                commentsRender.push(<li key={crypto.randomUUID()} id={comment.id} className="comment"><p>{comment.content}</p><button onClick={deletecomment}>Delete</button></li>)
+        console.log(comments)
+        const newcommentsrender = []
+        if (currentUser) {
+            for (let i = 0; i < comments.length; i++) {
+                const comment = comments[i]
+                await isliked(comment.id)
+                if (comment.author != currentUser.userName) {
+                    newcommentsrender.push(<li key={crypto.randomUUID()} id={comment.id}><p>{comment.content}</p><div className="commentsbuttons"><button onClick={(e) => {
+                        if (e.target.className == "liked") {
+                            e.target.className = ""
+                            const newvalue = parseInt(e.target.nextSibling.textContent) - 1
+                            e.target.nextSibling.textContent = newvalue.toString()
+                        } else {
+                            e.target.className = "liked"
+                            const newvalue = parseInt(e.target.nextSibling.textContent) + 1
+                            e.target.nextSibling.textContent = newvalue.toString()
+                        } likeordislikecomment(comment.id)
+                    }} className={likedclass}>Like</button><span>{comment.likes.toString()}</span>Likes</div></li>)
+                } else {
+                    newcommentsrender.push(<li key={crypto.randomUUID()} id={comment.id}><p>{comment.content}</p><div className="commentsbuttons"><button onClick={(e) => {
+                        if (e.target.className == "liked") {
+                            e.target.className = ""
+                            const newvalue = parseInt(e.target.nextSibling.textContent) - 1
+                            e.target.nextSibling.textContent = newvalue.toString()
+                        } else {
+                            e.target.className = "liked"
+                            const newvalue = parseInt(e.target.nextSibling.textContent) + 1
+                            e.target.nextSibling.textContent = newvalue.toString()
+                        } likeordislikecomment(comment.id)
+                    }} className={likedclass}>Like</button><span>{comment.likes.toString()}</span>Likes<button onClick={deletecomment} className="deletecommentbutton">Delete</button></div></li>)
+                }
+
             }
+
             
-        })
+        }
+        setCommentsRender([newcommentsrender])
+      
     }
 
     async function postcomment() {
@@ -89,7 +172,7 @@ function Comments() {
     }
 
 
-    return <div><ul id="commentslist"></ul><div id="postcommentcontainer"><ul>{commentsRender}</ul><textarea ref={newcommenttext} placeholder="add a comment..."></textarea><button onClick={postcomment}>Post</button><button onClick={() => { navigate("/") } }>Back</button></div></div>
+    return <div id="postcommentcontainer"><div id="postcontent">Post: {post.content}</div><div>{post.likes} likes {post.shares} shares</div><ul id="commentlist">{commentsRender}</ul><div id="newcommentcontainer"><textarea ref={newcommenttext} placeholder="add a comment..."></textarea><button onClick={postcomment}>Post</button><button onClick={() => { navigate(-1) }}>Back</button></div></div>
 }
 
 export default Comments;

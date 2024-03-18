@@ -79,7 +79,70 @@ export default defineConfig({
             '^/comments': {
                 target,
                 secure: false
+            },
+            '^/bannerpicture': {
+                target,
+                secure: false
+            },
+            '^/profilepicture': {
+                target,
+                secure: false
+            },
+            '^/aboutme': {
+                target,
+                secure: false
+            },
+            '^/users': {
+                target,
+                secure: false
+            }, 
+            '^/singleuser': {
+                target,
+                secure: false
+            },
+            '^/singleuserposts': {
+                target,
+                secure: false
+            },
+            '^/follow': {
+                target,
+                secure: false
+            },
+            '^/following': {
+                target,
+                secure: false
             }
+            ,
+            '^/followcounts': {
+                target,
+                secure: false
+            },
+            '^/like': {
+                target,
+                secure: false
+            },
+            '^/likecomment': {
+                target,
+                secure: false
+            },
+            '^/notificationcount': {
+                target,
+                secure: false
+            },
+            '^/notifications': {
+                target,
+                secure: false
+            },
+            '^/singlepost': {
+                target,
+                secure: false
+            },
+            '^/messages': {
+                target,
+                secure: true,
+                ws: true
+            }
+
 
         },
         port: 5173,

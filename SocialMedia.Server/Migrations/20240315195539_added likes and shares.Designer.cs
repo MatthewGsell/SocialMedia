@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SocialMedia.Server.Models;
 
@@ -11,9 +12,11 @@ using SocialMedia.Server.Models;
 namespace SocialMedia.Server.Migrations
 {
     [DbContext(typeof(MainContext))]
-    partial class MainContextModelSnapshot : ModelSnapshot
+    [Migration("20240315195539_added likes and shares")]
+    partial class addedlikesandshares
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,25 +48,6 @@ namespace SocialMedia.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Comments");
-                });
-
-            modelBuilder.Entity("SocialMedia.Server.Models.CommentLike", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CommentId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("User")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CommentsLikes");
                 });
 
             modelBuilder.Entity("SocialMedia.Server.Models.Follow", b =>
@@ -102,28 +86,6 @@ namespace SocialMedia.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Likes");
-                });
-
-            modelBuilder.Entity("SocialMedia.Server.Models.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SentFrom")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SentTo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("SocialMedia.Server.Models.Notification", b =>
@@ -172,12 +134,6 @@ namespace SocialMedia.Server.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("Likes")
-                        .HasColumnType("int");
-
-                    b.Property<string>("OriginalAuthor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("OriginalId")
                         .HasColumnType("int");
 
                     b.Property<int?>("Shares")

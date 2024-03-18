@@ -5,6 +5,8 @@
         public int Id { get; set; }
         public string? Content { get; set; }
         public string? Author { get; set; }
+        public string? OriginalAuthor { get; set; }
+        public int? OriginalId { get; set; }
         public int? Likes { get; set; }
         public int? Comments { get; set; }
         public  int? Shares { get; set; }
