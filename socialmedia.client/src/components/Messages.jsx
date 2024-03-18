@@ -25,8 +25,8 @@ function Messages() {
             skipNegotiation: true,
             transport: HttpTransportType.WebSockets
         }).withAutomaticReconnect().configureLogging(LogLevel.Information).build();
-        signalRConnection.on("receivemessage", (message) => {
-            console.log("message")
+        signalRConnection.on("ReceiveMessage", (message) => {
+            console.log(message)
         })
         
       
@@ -39,7 +39,7 @@ function Messages() {
         } catch (err) {
             console.error(err + "this error");
         }
-        signalRConnection.invoke("SendMessage", message)
+        signalRConnection.invoke("SendMessage")
     }
 
 

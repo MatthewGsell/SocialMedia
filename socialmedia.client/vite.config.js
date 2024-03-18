@@ -139,7 +139,7 @@ export default defineConfig({
             },
             '^/messages': {
                 target,
-                secure: true,
+                secure: false,
                 ws: true
             }
 
