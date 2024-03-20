@@ -57,16 +57,18 @@ function Search() {
     }
     
     return (
-        <div id="newmessagecontainer">
-            <h1 className="nothingopened">Search for a User</h1>
-            <input
-                id="usernameinput"
-                type="text"
-                onChange={(e) => {
-                    setQuery(e.target.value);
-                }}
-            ></input>
-            <div id="filteredusers">{filteredusers}</div>
+        <div id="searchcontainer">
+            <div><h1>Search for a User</h1>
+                <input
+                    id="usernameinput"
+                    type="text"
+                    onChange={(e) => {
+                        setQuery(e.target.value);
+                    }}
+                ></input>
+                <div id="filteredusers">{filteredusers}</div>
+                <button onClick={() => { navigate("/") }}>Back</button></div>
+            
         </div>
     );
 }

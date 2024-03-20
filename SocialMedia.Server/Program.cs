@@ -21,11 +21,11 @@ builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<UserContext>(options =>
 {
-    options.UseSqlServer("Server=DESKTOP-GCC7A7J;Database=UserDB; TrustServerCertificate=True; Integrated Security=True;");
+    options.UseSqlServer("Server=MATTSLAPTOP;Database=UserDB; TrustServerCertificate=True; Integrated Security=True;");
 });
 builder.Services.AddDbContext<MainContext>(options =>
 {
-    options.UseSqlServer("Server=DESKTOP-GCC7A7J;Database=MainDb; TrustServerCertificate=True; Integrated Security=True;");
+    options.UseSqlServer("Server=MATTSLAPTOP;Database=MainDb; TrustServerCertificate=True; Integrated Security=True;");
 });
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<UserContext>();
