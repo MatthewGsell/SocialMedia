@@ -42,13 +42,7 @@ function Home() {
         const a = await fetch(`/like?postid=${postid}`, {
             method: "POST"
         })
-        if (a.status == 200) {
-            
-
-
-        } else {
-            alert("there was a problem")
-        }
+       
     }
 
     async function isliked(postid) {
@@ -58,9 +52,7 @@ function Home() {
             const b = await a.json()
             likedclass = b.isliked
 
-        } else {
-            alert("there was a problem")
-        }
+        } 
     }
 
 
@@ -93,7 +85,7 @@ function Home() {
     async function isauthorized() {
         const a = await fetch("/pingauth");
         if (a.status != 200) {
-            navigate("/login")
+            navigate("/pagel")
         } else {
             const b = await a.json()
             setCurrentUser(b.currentUser)
@@ -125,6 +117,7 @@ function Home() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                               
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -137,6 +130,8 @@ function Home() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                                
+
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -151,6 +146,14 @@ function Home() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                                const notificationcount = document.querySelector(".notificationcount")
+                                let newcount = 0
+                                if (notificationcount.textContent) {
+                                    newcount = parseInt(notificationcount.textContent) + 1
+                                } else {
+                                    newcount = 1
+                                }
+                                notificationcount.innerText = newcount.toString()
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -163,6 +166,14 @@ function Home() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                                const notificationcount = document.querySelector(".notificationcount")
+                                let newcount = 0
+                                if (notificationcount.textContent) {
+                                    newcount = parseInt(notificationcount.textContent) + 1
+                                } else {
+                                    newcount = 1
+                                }
+                                notificationcount.innerText = newcount.toString()
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -177,6 +188,7 @@ function Home() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                                
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -189,6 +201,7 @@ function Home() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                               
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -203,6 +216,14 @@ function Home() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                                const notificationcount = document.querySelector(".notificationcount")
+                                let newcount = 0
+                                if (notificationcount.textContent) {
+                                    newcount = parseInt(notificationcount.textContent) + 1
+                                } else {
+                                    newcount = 1
+                                }
+                                notificationcount.innerText = newcount.toString()
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -215,6 +236,14 @@ function Home() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                                const notificationcount = document.querySelector(".notificationcount")
+                                let newcount = 0
+                                if (notificationcount.textContent) {
+                                    newcount = parseInt(notificationcount.textContent) + 1
+                                } else {
+                                    newcount = 1
+                                }
+                                notificationcount.innerText = newcount.toString()
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -225,9 +254,15 @@ function Home() {
 
             }
 
+            if (newpostsrender.length > 0) {
+                newpostsrender.reverse()
+                setPostsRender(newpostsrender)
+            } else {
+                setPostsRender([<h1 key={crypto.randomUUID()}>No Posts Yet</h1>])
+            }
 
-            setPostsRender(newpostsrender)
-            newpostsrender.reverse()
+            
+            
            
         }
         

@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Identity.Client;
 using Microsoft.OpenApi.Validations;
 using SocialMedia.Server.Models;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text.Json;
@@ -20,6 +21,115 @@ namespace SocialMedia.Server.Controllers
     public class MainController : Controller
     {
 
+
+
+
+
+
+
+
+        [HttpDelete("/singlemessages")]
+        public async Task<IResult> DeleteMessage(MainContext maindb)
+        {
+            string messageid = HttpContext.Request.Query["id"].ToString();
+            int intmessageid = int.Parse(messageid);
+
+            
+            Message messagetodelete = await maindb.Messages.Where(m => m.Id == intmessageid).FirstAsync();
+
+            maindb.Messages.Remove(messagetodelete);
+            await maindb.SaveChangesAsync();
+
+            return Results.Ok();
+
+        }
+
+
+        [HttpPost("/singlemessages")]
+        public async Task<IResult> PostSingleMessage(MainContext maindb,  [FromBody] Message newmessage)
+        {
+            maindb.Messages.Add(newmessage);
+            await maindb.SaveChangesAsync();
+            return Results.Ok();
+
+         
+
+        }
+
+
+        
+
+        [HttpGet("/singlemessages")]
+        public async Task<IResult> GetSingleMessages(MainContext maindb, UserManager<User> userManager)
+        {
+            User? user = await userManager.GetUserAsync(HttpContext.User);
+            string otherusername = HttpContext.Request.Query["otheruser"].ToString();
+
+            if (user != null)
+            {
+                List<Message> messages = await maindb.Messages.Where(m => m.SentFrom == user.UserName && m.SentTo == otherusername || m.SentTo == user.UserName && m.SentFrom == otherusername).ToListAsync();
+
+
+                messages.ForEach((message) =>
+                {
+                    if(message.SentTo == user.UserName)
+                    {
+                        message.Read = true;
+                    }
+                    
+                });
+                await maindb.SaveChangesAsync();
+
+                return Results.Json(new {Messages = messages});
+            } else
+            {
+                return Results.Problem();
+            }
+        }
+
+
+
+        [HttpGet("/messages")] 
+        public async Task<IResult> GetMessages(MainContext maindb, UserManager<User> userManager)
+        {
+            User? user = await userManager.GetUserAsync(HttpContext.User);
+
+            if (user != null )
+            {
+                List<Message> messages = await maindb.Messages.Where(m => m.SentFrom == user.UserName || m.SentTo == user.UserName).ToListAsync();
+
+                List<string> usernames = new List<string>();
+                List<string> unreadusernames = new List<string>();
+
+
+
+                for (int i = 0; i < messages.Count; i ++)
+                {
+                    if (messages[i].SentFrom == user.UserName || messages[i].Read == true )
+                    {
+                        usernames.Add(messages[i].SentFrom);
+                    } else if (messages[i].Read == true)
+                    {
+                        usernames.Add(messages[i].SentTo);
+                    } else if (messages[i].SentFrom != user.UserName && messages[i].Read == false)
+                    {
+                        unreadusernames.Add(messages[i].SentFrom);  
+                    } else 
+                    {
+                        unreadusernames.Add(messages[i].SentTo);
+                    }
+                }
+
+                usernames = usernames.Distinct().ToList();
+                unreadusernames = unreadusernames.Distinct().ToList();  
+
+                return Results.Json(new { Messages = usernames, unreadMessages = unreadusernames});
+
+            } else
+            {
+                return Results.Problem();
+            }
+        }
 
 
         [HttpGet("/notificationcount")]
@@ -263,6 +373,33 @@ namespace SocialMedia.Server.Controllers
         }
 
 
+
+
+        [HttpGet("/followers")]
+        public async Task<IResult> GetFollowers(MainContext maindb)
+        {
+            string username = HttpContext.Request.Query["username"].ToString();
+
+            List<Follow> followers = await maindb.Follows.Where(f => f.Follows == username ).ToListAsync();
+
+            return Results.Json(new { Followers = followers});
+
+        }
+        [HttpGet("/followings")]
+        public async Task<IResult> GetFollowing(MainContext maindb)
+        {
+            string username = HttpContext.Request.Query["username"].ToString();
+
+            List<Follow> following = await maindb.Follows.Where(f => f.User == username).ToListAsync();
+
+            return Results.Json(new { Following = following });
+
+        }
+
+
+
+
+
         [HttpGet("/followercounts")]
         public async Task<IResult> GetFollowerCounts(UserManager<User> userManager, MainContext maindb)
         {
@@ -398,7 +535,7 @@ namespace SocialMedia.Server.Controllers
             List<Post> postlist = new List<Post>();
            
           
-            postlist = await maindb.Posts.Where(p => p.Author ==  username).ToListAsync();
+            postlist = await maindb.Posts.Where(p => p.Author ==  username).Take(100).ToListAsync();
 
 
             return Results.Json(new { PostList = postlist });
@@ -444,7 +581,7 @@ namespace SocialMedia.Server.Controllers
 
                 }
 
-                orderedpostlist = postlist.OrderBy(p => p.Id).ToList();
+                orderedpostlist = postlist.OrderBy(p => p.Id).Take(100).ToList();
 
                 return Results.Json(new { PostList = orderedpostlist });
             } else { return Results.Problem(); }

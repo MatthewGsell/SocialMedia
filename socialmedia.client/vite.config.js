@@ -108,6 +108,11 @@ export default defineConfig({
                 target,
                 secure: false
             },
+            '^/followings': {
+                target,
+                secure: false
+            },
+
             '^/following': {
                 target,
                 secure: false
@@ -137,7 +142,17 @@ export default defineConfig({
                 target,
                 secure: false
             },
+            '^/chat': {
+                target,
+                secure: false,
+                ws: true
+            },
             '^/messages': {
+                target,
+                secure: false,
+                ws: true
+            },
+            '^/singlemessages': {
                 target,
                 secure: false,
                 ws: true

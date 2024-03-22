@@ -43,6 +43,19 @@ function UserPage() {
     checkifuser()
 
 
+    async function likeordislikepost(postid) {
+        const a = await fetch(`/like?postid=${postid}`, {
+            method: "POST"
+        })
+        if (a.status == 200) {
+
+
+
+        } else {
+            alert("there was a problem")
+        }
+    }
+
 
     async function checkifuser() {
         if (currentUser.userName == theUser.userName && currentUser.username != null) {
@@ -53,7 +66,7 @@ function UserPage() {
     async function isauthorized() {
         const a = await fetch("/pingauth");
         if (a.status != 200) {
-            navigate("/login")
+            navigate("/pagel")
         } else {
             const b = await a.json()
             setCurrentUser(b.currentUser)
@@ -69,9 +82,7 @@ function UserPage() {
         if (a.status == 200) {
             const b = await a.json()
             setNotificationCount(b.count)
-        } else {
-            alert("there was an error fetching notifications")
-        }
+        } 
 
     }
 
@@ -100,9 +111,7 @@ function UserPage() {
         })
         if (a.status == 200) {
             alert("post shared")
-        } else {
-            alert("there was a problem")
-        }
+        } 
     }
   
 
@@ -263,18 +272,22 @@ function UserPage() {
     async function logout() {
         const a = await fetch("/logout")
         if (a.status == 200) {
-            navigate("/")
+            window.location.reload()
         }
     }
 
 
-    return <div id="homecontainer"><div id="leftnavbar"><button className="navbutton" onClick={() => { navigate("/") }}>Home</button><button className="navbutton" onClick={() => { navigate("/notifpage") }}>Notifications <span className="notificationcount">{notificationCount > 0 && notificationCount}</span></button><button className="navbutton" onClick={() => { navigate("/search") }}>Search</button><button className="navbutton" onClick={() => { navigate("/inbox") }}>Messages</button><button className="navbutton" onClick={() => { navigate("/mypage") }}>Profile</button><button className="navbutton" onClick={() => { logout() }}>Log Out</button><button id="newpostbutton" onClick={() => { navigate("/newpost") }}>New Post</button></div><div id="createpostbutton"></div><div id="pagecontent"><div id="profilecontent"><img id="bannerimage" src={profilebanner}></img><div><img id="profilepicture" src={profilepicture}></img><div id="follow"><div><button>Following</button> {following}</div><div><button>Followers</button> {followers}</div></div><button onClick={() => {
+    return <div id="homecontainer"><div id="leftnavbar"><button className="navbutton" onClick={() => { navigate("/") }}>Home</button><button className="navbutton" onClick={() => { navigate("/notifpage") }}>Notifications <span className="notificationcount">{notificationCount > 0 && notificationCount}</span></button><button className="navbutton" onClick={() => { navigate("/search") }}>Search</button><button className="navbutton" onClick={() => { navigate("/inbox") }}>Messages</button><button className="navbutton" onClick={() => { navigate("/mypage") }}>Profile</button><button className="navbutton" onClick={() => { logout() }}>Log Out</button><button id="newpostbutton" onClick={() => { navigate("/newpost") }}>New Post</button></div><div id="createpostbutton"></div><div id="pagecontent"><div id="profilecontent"><img id="bannerimage" src={profilebanner}></img><div><img id="profilepicture" src={profilepicture}></img><div id="follow"><div><button onClick={
+        () => { navigate(`/flg/${theUser.userName}`) }
+    }>Following</button> {following}</div><div><button onClick={
+        () => { navigate(`/flr/${theUser.userName}`) }
+    }>Followers</button> {followers}</div></div><button onClick={() => {
         if (followsText == "Follow") {
             follow()
         } else {
             unfollow()
-        }
-    }} id="followbutton" className={followsText}>{followsText}</button><h1>About</h1><p id="aboutme">{aboutme}</p><h1 id="userpostsheader">Users Posts</h1></div></div><ul id="postslist">{postsrender}</ul></div></div>
+            }
+        }} id="followbutton" className={followsText}>{followsText}</button><button id="messagebutton" onClick={() => { navigate(`/dm/${theUser.userName}`) }}>Message</button><h1>About</h1><p id="aboutme">{aboutme}</p><h1 id="userpostsheader">Users Posts</h1></div></div><ul id="postslist">{postsrender}</ul></div></div>
 }
 
 

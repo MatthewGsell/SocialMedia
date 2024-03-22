@@ -44,15 +44,20 @@ function MyPage() {
     renderprofileimages()
 
 
+    async function likeordislikepost(postid) {
+        const a = await fetch(`/like?postid=${postid}`, {
+            method: "POST"
+        })
+        
+    }
+
     async function getnotificationcount() {
         const a = await fetch('/notificationcount')
 
         if (a.status == 200) {
             const b = await a.json()
             setNotificationCount(b.count)
-        } else {
-            alert("there was an error fetching notifications")
-        }
+        } 
 
     }
 
@@ -63,9 +68,7 @@ function MyPage() {
             const b = await a.json()
             likedclass = b.isliked
 
-        } else {
-            alert("there was a problem")
-        }
+        } 
     }
 
 
@@ -80,9 +83,7 @@ function MyPage() {
             })
         if (a.status == 200) {
             window.location.reload()
-            } else {
-                alert("there was a problem")
-            }
+            } 
     }
 
 
@@ -189,7 +190,7 @@ function MyPage() {
     async function isauthorized() {
         const a = await fetch("/pingauth");
         if (a.status != 200) {
-            navigate("/login")
+            navigate("/pagel")
         } else {
             const b = await a.json()
             setCurrentUser(b.currentUser)
@@ -220,6 +221,14 @@ function MyPage() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                                const notificationcount = document.querySelector(".notificationcount")
+                                let newcount = 0
+                                if (notificationcount.textContent) {
+                                    newcount = parseInt(notificationcount.textContent) + 1
+                                } else {
+                                    newcount = 1
+                                }
+                                notificationcount.innerText = newcount.toString()
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -232,6 +241,14 @@ function MyPage() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                                const notificationcount = document.querySelector(".notificationcount")
+                                let newcount = 0
+                                if (notificationcount.textContent) {
+                                    newcount = parseInt(notificationcount.textContent) + 1
+                                } else {
+                                    newcount = 1
+                                }
+                                notificationcount.innerText = newcount.toString()
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -246,6 +263,14 @@ function MyPage() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                                const notificationcount = document.querySelector(".notificationcount")
+                                let newcount = 0
+                                if (notificationcount.textContent) {
+                                    newcount = parseInt(notificationcount.textContent) + 1
+                                } else {
+                                    newcount = 1
+                                }
+                                notificationcount.innerText = newcount.toString()
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -258,6 +283,14 @@ function MyPage() {
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
                                 e.target.nextSibling.textContent = newvalue.toString()
                             } else {
+                                const notificationcount = document.querySelector(".notificationcount")
+                                let newcount = 0
+                                if (notificationcount.textContent) {
+                                    newcount = parseInt(notificationcount.textContent) + 1
+                                } else {
+                                    newcount = 1
+                                }
+                                notificationcount.innerText = newcount.toString()
                                 e.target.className = "liked"
                                 const newvalue = parseInt(e.target.nextSibling.textContent) + 1
                                 e.target.nextSibling.textContent = newvalue.toString()
@@ -268,7 +301,7 @@ function MyPage() {
 
             }
 
-
+           
 
             newpostsrender.reverse()
             setPostsRender(newpostsrender)
@@ -314,12 +347,18 @@ function MyPage() {
     async function logout() {
         const a = await fetch("/logout")
         if (a.status == 200) {
-            navigate("/")
+            window.location.reload();
         }
     }
 
 
-    return <div id="homecontainer">{settingsBox}{profilePictureBox}{bannerPictureBox}{aboutMeBox}<div id="leftnavbar"><button className="navbutton" onClick={() => { navigate("/") }}>Home</button><button className="navbutton" onClick={() => { navigate("/notifpage") }}>Notifications <span className="notificationcount">{notificationCount > 0 && notificationCount}</span></button><button className="navbutton" onClick={() => { navigate("/search") }}>Search</button><button className="navbutton" onClick={() => { navigate("/inbox") }}>Messages</button><button className="navbutton currentpage" onClick={() => { navigate("/mypage") }}>Profile</button><button className="navbutton" onClick={() => { logout() }}>Log Out</button><button id="newpostbutton" onClick={() => { navigate("/newpost") }}>New Post</button></div><div id="createpostbutton"></div><div id="pagecontent"><div id="profilecontent"><img id="bannerimage" src={profilebanner}></img><div><img id="profilepicture" src={profilepicture}></img><div id="follow"><div><button>Following</button> {following}</div><div><button>Followers</button> {followers}</div></div><button id="settingsbutton" onClick={rendersettings}>Settings</button><h1>About</h1><p id="aboutme">{aboutme}</p><h1 id="userpostsheader">Users Posts</h1></div></div><ul id="postslist">{postsrender}</ul></div></div>
+    return <div id="homecontainer">{settingsBox}{profilePictureBox}{bannerPictureBox}{aboutMeBox}<div id="leftnavbar"><button className="navbutton" onClick={() => { navigate("/") }}>Home</button><button className="navbutton" onClick={() => { navigate("/notifpage") }}>Notifications <span className="notificationcount">{notificationCount > 0 && notificationCount}</span></button><button className="navbutton" onClick={() => { navigate("/search") }}>Search</button><button className="navbutton" onClick={() => { navigate("/inbox") }}>Messages</button><button className="navbutton currentpage" onClick={() => { navigate("/mypage") }}>Profile</button><button className="navbutton" onClick={() => { logout() }}>Log Out</button><button id="newpostbutton" onClick={() => { navigate("/newpost") }}>New Post</button></div><div id="createpostbutton"></div><div id="pagecontent"><div id="profilecontent"><img id="bannerimage" src={profilebanner}></img><div><img id="profilepicture" src={profilepicture}></img><div id="follow"><div><button onClick={
+        () => {
+            navigate(`/flg/${currentUser.userName}`)
+        }
+    }>Following</button> {following}</div><div><button onClick={
+        () => { navigate(`/flr/${currentUser.userName}`) }
+    }>Followers</button> {followers}</div></div><button id="settingsbutton" onClick={rendersettings}>Settings</button><h1>About</h1><p id="aboutme">{aboutme}</p><h1 id="userpostsheader">Users Posts</h1></div></div><ul id="postslist">{postsrender}</ul></div></div>
 }
 
 

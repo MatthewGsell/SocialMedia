@@ -6,5 +6,6 @@
         public string? SentFrom { get; set; }    
         public string? SentTo { get; set; }
         public string? Content { get; set; }
+        public Boolean? Read {  get; set; } 
     }
 }
