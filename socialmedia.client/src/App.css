@@ -452,7 +452,7 @@ button.liked {
         width: 90%;
         
     }
-        #notificationlist > li > button {
+        #notificationlist > li > a > button {
             background-color: #141414;
             color: white;
             height: 24px;

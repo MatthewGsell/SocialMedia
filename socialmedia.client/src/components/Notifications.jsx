@@ -46,7 +46,7 @@ function Notifications() {
         })
     }
 
-    return <div id="homecontainer"><div id="leftnavbar"><button className="navbutton" onClick={() => { navigate("/") }}>Home</button><button className="navbutton currentpage" onClick={() => { navigate("/notifpage") }}>Notifications</button><button className="navbutton" onClick={() => { navigate("/search") }}>Search</button><button className="navbutton" onClick={() => {navigate("/inbox")}}>Messages</button><button className="navbutton" onClick={() => { navigate("/mypage") }}>Profile</button><button className="navbutton" onClick={() => { logout() }}>Log Out</button><button id="newpostbutton" onClick={() => { navigate("newpost") }}>New Post</button></div><div id="createpostbutton"></div><div id="pagecontent"><ul id="notificationlist">{notificationrender}</ul></div></div>
+    return <div id="homecontainer"><div id="leftnavbar"><button className="navbutton" onClick={() => { navigate("/") }}>Home</button><button className="navbutton currentpage" onClick={() => { navigate("/notifpage") }}>Notifications</button><button className="navbutton" onClick={() => { navigate("/search") }}>Search</button><button className="navbutton" onClick={() => {navigate("/inbox")}}>Messages</button><button className="navbutton" onClick={() => { navigate("/mypage") }}>Profile</button><button className="navbutton" onClick={() => { logout() }}>Log Out</button><button id="newpostbutton" onClick={() => { navigate("/newpost") }}>New Post</button></div><div id="createpostbutton"></div><div id="pagecontent"><ul id="notificationlist">{notificationrender}</ul></div></div>
 }
 
 

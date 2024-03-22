@@ -26,7 +26,7 @@ function Signup() {
             alert("username already exists")
         }
         else {
-            alert("Error: Passowrds must contain an uppercase character, lowercase character, a digit, and a non-alphanumeric character. Passwords must be at least six characters long.")
+            alert("Error: Passowrds must contain only one uppercase character, lowercase character, a digit, and a non-alphanumeric character. Passwords must be at least six characters long.")
         }
     }
 
