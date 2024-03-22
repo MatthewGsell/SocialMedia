@@ -252,12 +252,12 @@ function UserPage() {
 
     function renderprofileimages() {
         if (theUser.profilePicture == null) {
-            profilepicture = "/src/assets/DefaultProfilePicture.jpg"
+            profilepicture = "DefaultProfilePicture.jpg"
         } else {
             profilepicture = `data:image;base64,${theUser.profilePicture}`
         }
         if (theUser.bannerPicture == null) {
-            profilebanner = "/src/assets/defaultbanner.jpg"
+            profilebanner = "defaultbanner.jpg"
         } else {
             profilebanner = `data:image;base64,${theUser.bannerPicture}`
         } if (theUser.aboutMe != null) {
