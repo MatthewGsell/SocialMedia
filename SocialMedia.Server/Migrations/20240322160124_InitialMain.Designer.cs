@@ -12,8 +12,8 @@ using SocialMedia.Server.Models;
 namespace SocialMedia.Server.Migrations
 {
     [DbContext(typeof(MainContext))]
-    [Migration("20240316131926_added commentlikes")]
-    partial class addedcommentlikes
+    [Migration("20240322160124_InitialMain")]
+    partial class InitialMain
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,6 +107,31 @@ namespace SocialMedia.Server.Migrations
                     b.ToTable("Likes");
                 });
 
+            modelBuilder.Entity("SocialMedia.Server.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Content")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("Read")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SentFrom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SentTo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("SocialMedia.Server.Models.Notification", b =>
                 {
                     b.Property<int>("Id")
@@ -153,6 +178,12 @@ namespace SocialMedia.Server.Migrations
                         .HasColumnType("varbinary(max)");
 
                     b.Property<int?>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OriginalAuthor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OriginalId")
                         .HasColumnType("int");
 
                     b.Property<int?>("Shares")

@@ -43,7 +43,6 @@ function Following() {
 
         if (a.status == 200) {
             const b = await a.json()
-            console.log(b)
             setFollowings(b.following)
         }
     }

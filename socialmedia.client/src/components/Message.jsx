@@ -104,7 +104,6 @@ function Message() {
         if (a.status == 200) {
 
             const b = await a.json()
-            console.log(b)
             setMessages(b.messages)
         }
     }
@@ -113,7 +112,6 @@ function Message() {
         let newmessagerender = []
 
         messages.forEach((message) => {
-            console.log(message)
             if (message.sentFrom == currentUser.userName) {
                 newmessagerender.push([<li id={message.id} key={crypto.randomUUID()}><p>{message.content}</p><button onClick={deletemessage}>Delete</button></li>])
             } else {

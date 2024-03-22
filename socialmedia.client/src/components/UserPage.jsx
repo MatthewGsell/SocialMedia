@@ -90,7 +90,6 @@ function UserPage() {
     async function isliked(postid) {
         const a = await fetch(`/like?postid=${postid}`)
         if (a.status == 200) {
-            console.log(a)
             const b = await a.json()
             likedclass = b.isliked
 
@@ -166,7 +165,6 @@ function UserPage() {
 
         if (a.status == 200) {
           const b = await a.json()
-            console.log(b)
             setTheUser(b.user)
      
         } else {
@@ -178,9 +176,7 @@ function UserPage() {
 
     async function getposts() {
         const a = await fetch(`/singleuserposts?username=${username}`);
-        const b = await a.json()
-        console.log(b)
-  
+        const b = await a.json()  
         setPosts(b.postList)
     }
 

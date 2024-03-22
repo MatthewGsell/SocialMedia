@@ -47,7 +47,6 @@ function Messages() {
         if (a.status == 200) {
 
             const b = await a.json()
-            console.log(b)
             setMessages(b.messages)
             setUnreadMessages(b.unreadMessages)
         }
@@ -56,7 +55,6 @@ function Messages() {
     async function rendermessages() {
         const newmessagerender = []
         if (currentUser) {
-            console.log(messages)
             messages.forEach((message) => {
 
                 if (!unreadMessages.includes(message) && message != currentUser.userName) {

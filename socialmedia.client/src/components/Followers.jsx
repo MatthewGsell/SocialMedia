@@ -45,7 +45,6 @@ function Followers() {
 
         if (a.status == 200) {
             const b = await a.json()
-            console.log(b)
             setFollowers(b.followers)
         }
     }

@@ -64,7 +64,6 @@ function MyPage() {
     async function isliked(postid) {
         const a = await fetch(`/like?postid=${postid}`)
         if (a.status == 200) {
-            console.log(a)
             const b = await a.json()
             likedclass = b.isliked
 
@@ -100,7 +99,6 @@ function MyPage() {
     async function changeprofilepicture() {
         if (profilepictureimage.current.files != null) {
             const formData = new FormData();
-            console.log(profilepictureimage.current.files[0])
             formData.append("Image", profilepictureimage.current.files[0])
             const a = await fetch("/profilepicture", {
                 method: "PUT",
@@ -202,7 +200,6 @@ function MyPage() {
     async function getposts() {
         const a = await fetch("/posts");
         const b = await a.json()
-        console.log(b)
         setPosts(b.postList)
     }
 

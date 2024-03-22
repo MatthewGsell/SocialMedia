@@ -51,7 +51,7 @@ function Comments() {
         if (a.status == 200) {
             
             const b = await a.json()
-            console.log(b)
+        
             likedclass = b.isliked
 
 
@@ -96,7 +96,7 @@ function Comments() {
     }
 
     async function rendercomments() {
-        console.log(comments)
+       
         const newcommentsrender = []
         if (currentUser) {
             for (let i = 0; i < comments.length; i++) {

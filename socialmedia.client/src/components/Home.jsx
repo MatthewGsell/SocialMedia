@@ -48,7 +48,6 @@ function Home() {
     async function isliked(postid) {
         const a = await fetch(`/like?postid=${postid}`)
         if (a.status == 200) {
-            console.log(a)
             const b = await a.json()
             likedclass = b.isliked
 
@@ -97,7 +96,6 @@ function Home() {
     async function getposts() {
         const a = await fetch("/posts");
         const b = await a.json()
-        console.log(b)
         setPosts(b.postList)
         setPostsRender([])
        

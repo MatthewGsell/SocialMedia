@@ -12,8 +12,8 @@ using SocialMedia.Server.Models;
 namespace SocialMedia.Server.Migrations.User
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20240314153923_added about me")]
-    partial class addedaboutme
+    [Migration("20240322160145_InitialUser")]
+    partial class InitialUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -21,13 +21,13 @@ builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<UserContext>(options =>
 {
-    string userdb = Environment.GetEnvironmentVariable("SQL_STRING_USER");
+    string maindb = builder.Configuration.GetConnectionString("SQL_STRING_MAIN");
     
-    options.UseSqlServer(userdb);
+    options.UseSqlServer(maindb);
 });
 builder.Services.AddDbContext<MainContext>(options =>
 {
-    string maindb = Environment.GetEnvironmentVariable("SQL_STRING_MAIN");
+    string maindb = builder.Configuration.GetConnectionString("SQL_STRING_MAIN");
 
     options.UseSqlServer(maindb);
 });

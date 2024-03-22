@@ -13,7 +13,6 @@ function NewPost() {
             const formData = new FormData();
             formData.append("Content", posttext.current.value)
             formData.append("Image", postimage.current.files[0])
-            console.log(postimage.current.files[0])
             const a = await fetch("/posts", {
                 method: "POST",
                 body: formData

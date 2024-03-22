@@ -31,7 +31,6 @@ function NewMessageSearch() {
             method: "GET"
         });
         const b = await a.json();
-        console.log(b)
         setUsers(b.userlist);
     }
     function filterusers() {

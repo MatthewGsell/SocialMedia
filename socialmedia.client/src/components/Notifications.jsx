@@ -41,7 +41,6 @@ function Notifications() {
                 method: "DELETE"
             })
         }
-        console.log(notifications)
         notifications.forEach((notification) => {
             notificationrender.push([<li key={crypto.randomUUID()} ><div className="notification" >{notification.message}</div><Link target="_blank" to={notification.link}><button>See Here</button></Link></li>])
         })

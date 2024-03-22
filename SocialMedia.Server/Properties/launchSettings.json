@@ -6,9 +6,8 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
-        "SQL_STRING_USER": "Server=DESKTOP-GCC7A7J;Database=UserDB; TrustServerCertificate=True; Integrated Security=True;",
-        "SQL_STRING_MAIN": "Server=DESKTOP-GCC7A7J;Database=MainDB; TrustServerCertificate=True; Integrated Security=True;"
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+       
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5073"
@@ -19,9 +18,8 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
-        "SQL_STRING_USER": "Server=DESKTOP-GCC7A7J;Database=UserDB; TrustServerCertificate=True; Integrated Security=True;",
-        "SQL_STRING_MAIN": "Server=DESKTOP-GCC7A7J;Database=MainDB; TrustServerCertificate=True; Integrated Security=True;"
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+    
       },
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:7191;http://localhost:5073"
@@ -32,9 +30,8 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy",
-        "SQL_STRING_USER": "Server=DESKTOP-GCC7A7J;Database=UserDB; TrustServerCertificate=True; Integrated Security=True;",
-        "SQL_STRING_MAIN": "Server=DESKTOP-GCC7A7J;Database=MainDB; TrustServerCertificate=True; Integrated Security=True;"
+        "ASPNETCORE_HOSTINGSTARTUPASSEMBLIES": "Microsoft.AspNetCore.SpaProxy"
+       
       }
     }
   },
