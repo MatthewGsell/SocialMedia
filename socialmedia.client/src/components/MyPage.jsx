@@ -307,12 +307,12 @@ function MyPage() {
 
     function renderprofileimages() {
         if (currentUser.profilePicture == null) {
-            profilepicture = "DefaultProfilePicture.jpg"
+            profilepicture = "../../DefaultProfilePicture.jpg"
         } else {
             profilepicture = `data:image;base64,${currentUser.profilePicture}`
         }
         if (currentUser.bannerPicture == null) {
-            profilebanner = "defaultbanner.jpg"
+            profilebanner = "../../defaultbanner.jpg"
         } else {
             profilebanner = `data:image;base64,${currentUser.bannerPicture}`
         } if (currentUser.aboutMe != null) {

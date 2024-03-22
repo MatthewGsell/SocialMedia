@@ -53,8 +53,8 @@ function Following() {
 
 
         followings.forEach((following) => {
-            newfollowingsrender.push([<li key={crypto.randomUUID()}><p>{following.user}</p><button onClick={() => {
-                if (following.user == currentUser.userName) {
+            newfollowingsrender.push([<li key={crypto.randomUUID()}><p>{following.follows}</p><button onClick={() => {
+                if (following.follows == currentUser.userName) {
                     navigate("/mypage")
                 } else {
                     navigate(`/userpage/${following.user}`)
