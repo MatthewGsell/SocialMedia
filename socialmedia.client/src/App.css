@@ -311,11 +311,15 @@ li > div > div > button:hover {
         color: white;
         border-radius: 10px;
 }
+    #settingsbox > button:hover, #aboutmebox > button:hover, #profilepicturebox > button:hover, #bannerpicturebox > button:hover {
+        cursor: pointer;
+        border: 2px solid white
+    }
 
-#settingsbox > button:hover {
-    cursor: pointer;
-    border: 2px solid white
-}
+    #settingsbox > button:hover {
+        cursor: pointer;
+        border: 2px solid white
+    }
 
 #followbutton.Unfollow {
     background-color: white;
