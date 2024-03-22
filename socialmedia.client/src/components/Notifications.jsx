@@ -27,6 +27,13 @@ function Notifications() {
         }
     }
 
+    async function logout() {
+        const a = await fetch("/logout")
+        if (a.status == 200) {
+            window.location.reload()
+        }
+    }
+
     function rendernotifications() {
      
         if (notifications.length > 0) {

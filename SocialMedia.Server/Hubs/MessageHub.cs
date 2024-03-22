@@ -7,12 +7,23 @@ namespace SocialMedia.Server.Hubs
     {
         public override Task OnConnectedAsync()
         {
+            
             return base.OnConnectedAsync();
         }
 
-        public async Task SendMessage()
+        public async Task JoinUserRoom(string username)
         {
-            await Clients.All.SendAsync("ReceiveMessage", "this is a dumb message");
+            await Groups.AddToGroupAsync(Context.ConnectionId, username);
         }
+
+
+        public  Task TriggerRender(string groupname) {
+            return Clients.Group(groupname).SendAsync("ReRender");
+        }
+
+
+        
+
+       
     }
 }

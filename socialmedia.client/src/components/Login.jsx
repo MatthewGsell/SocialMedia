@@ -23,7 +23,7 @@ function Login() {
         if (a.status == 200) {
             navigate("/")
         } else {
-            console.log('wrong')
+            alert("incorrect username or password")
         }
     } 
 
@@ -31,14 +31,14 @@ function Login() {
         <div id="signlogcontainer">
             <h1>Log In</h1>
             <div id="signlogform">
-                <div className="signloginputlabel">Email</div>
+                <div className="signloginputlabel">Username</div>
                 <input id="usernamesignlog" ref={email} />
                 <div className="signloginputlabel">Password</div>
                 <input id="passwordsignlog" ref={password} />
                 <button id="submitbutton" onClick={databaselogin}>
                     Log In!
                 </button>
-                <p>Not a member?{<Link to="/signup">Sign Up</Link>}</p>
+                <p>Not a member?{<Link to="/pages">Sign Up</Link>}</p>
                 <p id="signlogerror"></p>
             </div>
         </div>

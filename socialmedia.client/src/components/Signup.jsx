@@ -20,10 +20,14 @@ function Signup() {
         username.current.value = ""
         password.current.value = "";
         if (a.status == 200) {
-            navigate("/login");
-            console.log('yuh')
-        } else {
-            console.log('error signing up')
+            navigate("/pagel");
+           
+        } else if (a.status == 409) {
+            alert("username already exists")
+        }
+        else {
+            console.log(a.status)
+            alert("Error: Passowrds must contain an uppercase character, lowercase character, a digit, and a non-alphanumeric character. Passwords must be at least six characters long.")
         }
     }
 
@@ -38,7 +42,7 @@ function Signup() {
                 <button id="submitbutton" onClick={databasesignup}>
                     Sign Up!
                 </button>
-                <p>Not a member?{<Link to="/login">Log In</Link>}</p>
+                <p>Already a member?{<Link to="/pagel">Log In</Link>}</p>
                 <p id="signlogerror"></p>
             </div>
         </div>

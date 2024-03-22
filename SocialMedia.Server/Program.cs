@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
@@ -21,11 +21,15 @@ builder.Services.AddSignalR();
 
 builder.Services.AddDbContext<UserContext>(options =>
 {
-    options.UseSqlServer("Server=MATTSLAPTOP;Database=UserDB; TrustServerCertificate=True; Integrated Security=True;");
+    string userdb = Environment.GetEnvironmentVariable("SQL_STRING_USER");
+    
+    options.UseSqlServer(userdb);
 });
 builder.Services.AddDbContext<MainContext>(options =>
 {
-    options.UseSqlServer("Server=MATTSLAPTOP;Database=MainDb; TrustServerCertificate=True; Integrated Security=True;");
+    string maindb = Environment.GetEnvironmentVariable("SQL_STRING_MAIN");
+
+    options.UseSqlServer(maindb);
 });
 builder.Services.AddAuthorization();
 builder.Services.AddIdentityApiEndpoints<User>().AddEntityFrameworkStores<UserContext>();
@@ -51,6 +55,13 @@ app.MapPost("/signup", async (UserManager<User> userManager) =>
     var result = await reader.ReadToEndAsync();
     var resultdictionary = JsonSerializer.Deserialize<Dictionary<string, string>>(result);
     var user = new User();
+
+    Boolean isduplicate = await userManager.Users.AnyAsync(u => u.UserName == resultdictionary["username"]);
+    
+    if (isduplicate)
+    {
+        return Results.Conflict();
+    }
 
     await userManager.SetUserNameAsync(user, resultdictionary["username"]);
 
@@ -114,7 +125,7 @@ app.MapControllers();
 
 app.MapFallbackToFile("/index.html");
 
-app.MapHub<MessageHub>("/messages");
+app.MapHub<MessageHub>("/chat");
 
 
 app.Run();

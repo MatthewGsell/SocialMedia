@@ -7,6 +7,7 @@
     <SpaRoot>..\socialmedia.client</SpaRoot>
     <SpaProxyLaunchCommand>npm run dev</SpaProxyLaunchCommand>
     <SpaProxyServerUrl>https://localhost:5173</SpaProxyServerUrl>
+    <UserSecretsId>b45aea0e-6c74-4222-a697-d47624539467</UserSecretsId>
   </PropertyGroup>
 
 	<ItemGroup>

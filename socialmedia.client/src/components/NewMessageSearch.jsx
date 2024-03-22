@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Search() {
+function NewMessageSearch() {
     const [query, setQuery] = useState();
     const [users, setUsers] = useState([]);
     const [currentUser, setCurrentUser] = useState({})
@@ -42,8 +42,8 @@ function Search() {
                         id={user.id}
                         key={crypto.randomUUID()}
                         onClick={() => {
-                           
-                                navigate(`/userpage/${user.userName}`)
+                          
+                                navigate(`/dm/${user.userName}`)
                             
                         }}
                     >
@@ -53,7 +53,7 @@ function Search() {
             }
         });
     }
-    
+
     return (
         <div id="searchcontainer">
             <div><h1>Search for a User</h1>
@@ -65,10 +65,10 @@ function Search() {
                     }}
                 ></input>
                 <div id="filteredusers">{filteredusers}</div>
-                <button onClick={() => { navigate("/") }}>Back</button></div>
-            
+                <button onClick={() => { navigate(-1) }}>Back</button></div>
+
         </div>
     );
 }
 
-export default Search;
+export default NewMessageSearch;
