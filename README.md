@@ -3,3 +3,5 @@
         ◦ Users can follow/unfollow each other as well as direct message each other with real time text chat.
         ◦ Back end was built using SQL server, C# and the ASP.NET core framework with the front end built using React.
         ◦ Try it out → https://mdgsocialmediaapi.azurewebsites.net/ there is a pre-made user with the username: userone and the password: Userpassword1234$ if you would like to try it without making an account. 
+
+Login ![Vite + React - Google Chrome 3_22_2024 3_05_55 PM](https://github.com/MatthewGsell/SocialMedia/assets/122045067/66de1340-6cde-41c8-a736-bdac6195f60a)
