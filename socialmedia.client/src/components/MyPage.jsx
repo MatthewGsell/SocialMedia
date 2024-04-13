@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useEffect, useState, useRef } from "react";
 
 
@@ -212,7 +212,7 @@ function MyPage() {
                 await isliked(post.id)
                 if (post.originalAuthor == null && currentUser.userName == post.author) {
                     if (post.image != null && post.originalAuthor == null) {
-                        newpostsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p className="postauthor">{post.author}</p><p className="postcontent">{post.content}</p><img src={`data:image;base64,${post.image}`}></img><div><div><button onClick={(e) => {
+                        newpostsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p className="postauthor"><Link reloadDocument to={`/userpage/${post.author}`}>{post.author}</Link></p><p className="postcontent">{post.content}</p><img src={`data:image;base64,${post.image}`}></img><div><div><button onClick={(e) => {
                             if (e.target.className == "liked") {
                                 e.target.className = ""
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
@@ -232,7 +232,7 @@ function MyPage() {
                             } likeordislikepost(post.id)
                         }} className={likedclass}>Like</button><span>{post.likes.toString()}</span> likes</div><div><button onClick={(e) => { navigate("/post/" + e.target.parentElement.parentElement.parentElement.id) }}>Comment</button>{post.comments.toString()} comments</div><div id={post.id}><button id={post.author} onClick={sharepost}>Share</button>{post.shares.toString()} shares</div><button onClick={deletepost}>Delete</button></div></li>])
                     } else {
-                        newpostsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p className="postauthor">{post.author}</p><p className="postcontent">{post.content}</p><div><div><button onClick={(e) => {
+                        newpostsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p className="postauthor"><Link reloadDocument to={`/userpage/${post.author}`}>{post.author}</Link></p><p className="postcontent">{post.content}</p><div><div><button onClick={(e) => {
                             if (e.target.className == "liked") {
                                 e.target.className = ""
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
@@ -254,7 +254,7 @@ function MyPage() {
                     }
                 } else if (post.originalAuthor != null && currentUser.userName == post.author) {
                     if (post.image != null && post.originalAuthor != null) {
-                        newpostsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p className="postauthor">{post.author}<span className="sharedfrom"> shared </span>{post.originalAuthor}'s<span className="sharedfrom">post</span></p><p className="postcontent">{post.content}</p><img src={`data:image;base64,${post.image}`}></img><div><div><button onClick={(e) => {
+                        newpostsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p className="postauthor"><Link reloadDocument to={`/userpage/${post.author}`}>{post.author}</Link><span className="sharedfrom"> shared </span><Link reloadDocument to={`/userpage/${post.originalAuthor}`}>{post.originalAuthor}</Link>'s<span className="sharedfrom">post</span></p><p className="postcontent">{post.content}</p><img src={`data:image;base64,${post.image}`}></img><div><div><button onClick={(e) => {
                             if (e.target.className == "liked") {
                                 e.target.className = ""
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1
@@ -274,7 +274,7 @@ function MyPage() {
                             } likeordislikepost(post.id)
                         }} className={likedclass}>Like</button><span>{post.likes.toString()}</span> likes</div><div><button onClick={(e) => { navigate("/post/" + e.target.parentElement.parentElement.parentElement.id) }}>Comment</button>{post.comments.toString()} comments</div><div id={post.originalId}><button id={post.originalAuthor} onClick={sharepost}>Share</button></div><button onClick={deletepost}>Delete</button></div></li>])
                     } else {
-                        newpostsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p className="postauthor">{post.author}<span className="sharedfrom"> shared </span>{post.originalAuthor}'s<span className="sharedfrom">post</span></p><p className="postcontent">{post.content}</p><div><div><button onClick={(e) => {
+                        newpostsrender.push([<li key={crypto.randomUUID()} className="postdiv" id={post.id}><p className="postauthor"><Link reloadDocument to={`/userpage/${post.author}`}>{post.author}</Link><span className="sharedfrom"> shared </span><Link reloadDocument to={`/userpage/${post.originalAuthor}`}>{post.originalAuthor}</Link>'s<span className="sharedfrom">post</span></p><p className="postcontent">{post.content}</p><div><div><button onClick={(e) => {
                             if (e.target.className == "liked") {
                                 e.target.className = ""
                                 const newvalue = parseInt(e.target.nextSibling.textContent) - 1

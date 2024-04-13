@@ -869,3 +869,9 @@ button.liked {
         border: 2px solid white;
         cursor: pointer;
     }
+
+    /*styling for user hyperlinks*/ 
+
+    .postauthor > a, .shared from > a {
+        color: black;
+    }
